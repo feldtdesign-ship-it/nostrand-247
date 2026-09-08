@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>247 Nostrand Ave / Platform's Edge</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0C0C0C;--cement:#9B9B95;--cream:#F3EFE4;--yellow:#F6C500;--orange:#F0611F;
+--mono:'IBM Plex Mono',ui-monospace,monospace;--display:'Oswald',Impact,sans-serif;}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--cream);font-family:var(--mono);overflow-x:hidden}
+#stage{position:fixed;inset:0;z-index:0;background:var(--ink)}
+#stage canvas{display:block;width:100%;height:100%}
+#poster{position:fixed;inset:0;z-index:0;display:none}
+#poster img{width:100%;height:100%;object-fit:cover;opacity:.85}
+body.fallback #stage{display:none} body.fallback #poster{display:block}
+#scrim{position:fixed;inset:0;z-index:1;pointer-events:none;transition:background .5s ease;
+background:linear-gradient(90deg,rgba(12,12,12,.92),rgba(12,12,12,.7) 42%,rgba(12,12,12,.08))}
+#scrim.flip{background:linear-gradient(270deg,rgba(12,12,12,.92),rgba(12,12,12,.7) 42%,rgba(12,12,12,.08))}
+#load{position:fixed;inset:0;z-index:40;background:var(--ink);display:flex;align-items:center;
+justify-content:center;flex-direction:column;gap:16px;transition:opacity .6s ease}
+#load.done{opacity:0;pointer-events:none}
+#load .t{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--cement)}
+#load .track{width:190px;height:2px;background:rgba(155,155,149,.3)}
+#load .fill{height:2px;width:0;background:var(--yellow);transition:width .25s ease}
+#bar{position:fixed;top:0;left:0;height:3px;background:var(--yellow);width:0;z-index:30}
+#mast{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;justify-content:space-between;
+padding:16px 22px;pointer-events:none;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--cement)}
+#mast b{color:var(--cream);font-weight:600}
+#rail{position:fixed;z-index:20;right:18px;top:50%;transform:translateY(-50%);display:flex;
+flex-direction:column;gap:14px;align-items:flex-end}
+#rail a{display:flex;align-items:center;gap:9px;text-decoration:none;color:var(--cement);
+font-size:9.5px;letter-spacing:.16em;text-transform:uppercase}
+#rail a .dot{width:9px;height:9px;border:1.5px solid var(--cement)}
+#rail a.on{color:var(--yellow)} #rail a.on .dot{background:var(--yellow);border-color:var(--yellow)}
+#rail a .lbl{opacity:0;transition:opacity .2s}
+#rail a:hover .lbl,#rail a.on .lbl{opacity:1}
+#cap{position:fixed;left:22px;bottom:18px;z-index:20;font-size:9.5px;letter-spacing:.16em;
+text-transform:uppercase;color:var(--cement);border-left:2px solid var(--yellow);padding-left:10px;max-width:52vw}
+main{position:relative;z-index:10}
+section{min-height:100vh;display:flex;align-items:center;padding:120px 24px}
+.wrap{max-width:540px;margin-left:7vw}
+.wrap.right{margin-left:auto;margin-right:7vw}
+.eyebrow{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--yellow);margin-bottom:16px}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(44px,8.5vw,104px);line-height:.92;text-transform:uppercase}
+h2{font-family:var(--display);font-weight:700;font-size:clamp(30px,5vw,56px);line-height:1;text-transform:uppercase;margin-bottom:18px}
+h1 em,h2 em{font-style:normal;color:var(--yellow)}
+p{font-size:15px;line-height:1.65;color:#d9d5cb;margin-bottom:14px;max-width:46ch}
+p.lede{font-size:17px;color:var(--cream)}
+.card{background:rgba(12,12,12,.8);backdrop-filter:blur(9px);border-left:3px solid var(--yellow);padding:26px 28px}
+.rule{height:2px;background:var(--yellow);width:88px;margin:20px 0}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:rgba(155,155,149,.3);margin-top:20px}
+.stat{background:var(--ink);padding:18px 16px}
+.stat .n{font-family:var(--display);font-weight:700;font-size:32px;color:var(--yellow);line-height:1}
+.stat .k{font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--cement);margin-top:7px}
+.rows{margin-top:18px;border-top:1px solid rgba(155,155,149,.35)}
+.row{display:grid;grid-template-columns:140px 1fr;gap:14px;padding:11px 0;border-bottom:1px solid rgba(155,155,149,.2)}
+.row dt{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--cement)}
+.row dd{font-size:14px;color:#d9d5cb}
+.flag{display:inline-block;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;
+background:var(--orange);color:var(--ink);padding:3px 8px;font-weight:600;margin-bottom:12px}
+#shop{background:var(--ink);position:relative;z-index:10;padding:90px 24px;border-top:2px solid var(--yellow)}
+#shop .inner{max-width:1180px;margin:0 auto}
+.strip{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:26px}
+.shot{position:relative;aspect-ratio:4/5;background:#141414;border:1px solid rgba(155,155,149,.28);overflow:hidden}
+.shot img{width:100%;height:100%;object-fit:cover;display:block}
+.shot .miss{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;
+justify-content:center;gap:8px;text-align:center;padding:16px;font-size:10px;letter-spacing:.16em;
+text-transform:uppercase;color:var(--cement)}
+.shot .miss b{color:var(--yellow);font-weight:600;font-size:11px}
+.shot figcaption{position:absolute;left:0;right:0;bottom:0;padding:9px 11px;
+background:linear-gradient(0deg,rgba(12,12,12,.92),transparent);font-size:9.5px;
+letter-spacing:.14em;text-transform:uppercase;color:var(--cream)}
+footer{position:relative;z-index:10;background:var(--ink);padding:44px 24px 70px;border-top:1px solid rgba(155,155,149,.3)}
+footer .wrap{margin-left:7vw}
+footer p{font-size:11.5px;color:var(--cement);max-width:66ch}
+@media (max-width:760px){
+.wrap,.wrap.right,footer .wrap{margin:0;max-width:none}
+section{padding:100px 20px}
+#rail{right:10px;gap:11px} #rail a .lbl{display:none}
+#scrim,#scrim.flip{background:linear-gradient(0deg,rgba(12,12,12,.94) 12%,rgba(12,12,12,.5) 62%,rgba(12,12,12,.15))}
+#cap{max-width:76vw;font-size:9px}
+.strip{grid-template-columns:1fr}}
+</style></head><body>
+<div id="load"><div class="t">Loading Bedford-Stuyvesant</div><div class="track"><div class="fill" id="fill"></div></div></div>
+<div id="stage"></div>
+<div id="poster"><img src="assets/plates/01_map_wide.jpg" alt="Neighbourhood massing"></div>
+<div id="scrim"></div><div id="bar"></div>
+<div id="mast"><div><b>247 NOSTRAND AVE</b> &nbsp;/&nbsp; Bedford-Stuyvesant, Brooklyn</div>
+<div>Platform's Edge &nbsp;/&nbsp; Site Dossier</div></div>
+<nav id="rail">
+<a href="#s0"><span class="lbl">Site</span><span class="dot"></span></a>
+<a href="#s1"><span class="lbl">Location</span><span class="dot"></span></a>
+<a href="#s2"><span class="lbl">The Grid</span><span class="dot"></span></a>
+<a href="#s3"><span class="lbl">Corridor</span><span class="dot"></span></a>
+<a href="#s4"><span class="lbl">Numbers</span><span class="dot"></span></a>
+<a href="#s5"><span class="lbl">The Deal</span><span class="dot"></span></a>
+<a href="#s6"><span class="lbl">Open Items</span><span class="dot"></span></a></nav>
+<div id="cap"></div>
+<main>
+<section id="s0" data-cap="1,432 buildings / NYC footprints at recorded roof heights">
+<div class="wrap"><div class="eyebrow">Platform's Edge / Location Study / Draft v1</div>
+<h1>247<br>Nostrand<br><em>Ave</em></h1><div class="rule"></div>
+<p class="lede">Every building here is real, at its recorded height. The streets and sidewalks are
+the city's surveyed polygons. The yellow one is the site.</p>
+<p style="font-size:12px;color:#9B9B95">Scroll.</p></div></section>
+
+<section id="s1" data-cap="BBL 3017840005 / BIN 3049765 / built 1899 / roof 22.5 ft">
+<div class="wrap right"><div class="card"><div class="eyebrow">Section One</div>
+<h2>The <em>Site</em></h2>
+<p>Ground floor commercial, low building, taller neighbours on both sides. The pattern that runs
+the length of the Nostrand retail corridor.</p>
+<dl class="rows">
+<div class="row"><dt>Address</dt><dd>247 Nostrand Ave, Brooklyn</dd></div>
+<div class="row"><dt>Tax lot</dt><dd>BBL 3017840005</dd></div>
+<div class="row"><dt>Building</dt><dd>BIN 3049765, built 1899</dd></div>
+<div class="row"><dt>Roof height</dt><dd>22.5 ft on record</dd></div>
+</dl></div></div></section>
+
+<section id="s2" data-cap="Plan / centerline street names, roadbed and sidewalk polygons, 712 trees">
+<div class="wrap"><div class="card"><div class="eyebrow">Section Two</div>
+<h2>The <em>Grid</em></h2>
+<p>Nostrand, Lafayette, DeKalb, Kosciuszko, Pulaski. Sidewalks and roadbed are surveyed polygons,
+not drawn lines, so the intersections are the real shape.</p>
+<p>712 living street trees, positioned and sized from the census.</p></div></div></section>
+
+<section id="s3" data-cap="Nostrand Avenue, street level">
+<div class="wrap right"><div class="card"><div class="eyebrow">Section Three</div>
+<h2>The <em>Corridor</em></h2>
+<p>A continuous low-rise retail wall. No dead blocks breaking the run.</p>
+<p>The cart works here for the same reason it worked on a platform. People are already moving past
+at walking pace.</p></div></div></section>
+
+<section id="s4" data-cap="Block axonometric">
+<div class="wrap"><div class="card"><div class="eyebrow">Section Four</div>
+<h2>The <em>Numbers</em></h2>
+<p>Tracked Square register data, July 1 to September 3, 2026. Gross sales only. This is not a
+P&amp;L. No cost data sits behind it yet.</p>
+<div class="stats">
+<div class="stat"><div class="n">$32,212</div><div class="k">Gross, 64 days</div></div>
+<div class="stat"><div class="n">$503</div><div class="k">Per day</div></div>
+<div class="stat"><div class="n">324</div><div class="k">Transactions</div></div>
+<div class="stat"><div class="n">$99</div><div class="k">Average sale</div></div>
+</div></div></div></section>
+
+<section id="s5" data-cap="247 Nostrand, close">
+<div class="wrap right"><div class="card"><div class="eyebrow">Section Five</div>
+<h2>The <em>Deal</em></h2>
+<p>Revenue share against a minimum guarantee. The site clears at the real tracked pace, which is
+why it was carried forward.</p>
+<dl class="rows">
+<div class="row"><dt>Structure</dt><dd>Revenue share, Christmas season</dd></div>
+<div class="row"><dt>Min guarantee</dt><dd>$7,700</dd></div>
+<div class="row"><dt>Break-even</dt><dd>Clears at the tracked $503 per day</dd></div>
+</dl></div></div></section>
+
+<section id="s6" data-cap="Neighbourhood, wide">
+<div class="wrap"><div class="card"><div class="flag">Unresolved</div>
+<div class="eyebrow">Section Six</div><h2>Open <em>Items</em></h2>
+<dl class="rows">
+<div class="row"><dt>Split</dt><dd>43.9 / 56.1 headline does not reconcile with the 50 / 50 in the tee walkthrough.</dd></div>
+<div class="row"><dt>Costs</dt><dd>No real cost data behind the gross figures yet.</dd></div>
+<div class="row"><dt>Entity</dt><dd>Not confirmed. Biggest lever on financing.</dd></div>
+<div class="row"><dt>Subway</dt><dd>G line and station entrances not yet on the model.</dd></div>
+</dl></div></div></section>
+</main>
+
+<section id="shop"><div class="inner"><div class="eyebrow">Section Seven</div>
+<h2>The <em>Shop</em></h2>
+<p>Photographs of the storefront and the cart. Drop files into assets/shop/ named
+<code>shop-01.jpg</code>, <code>shop-02.jpg</code>, <code>shop-03.jpg</code> and reload.</p>
+<div class="strip">
+<figure class="shot"><img src="assets/shop/shop-01.jpg" alt="Storefront" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+<div class="miss" style="display:none"><b>shop-01.jpg</b><span>Storefront, exterior</span></div>
+<figcaption>Storefront</figcaption></figure>
+<figure class="shot"><img src="assets/shop/shop-02.jpg" alt="Interior" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+<div class="miss" style="display:none"><b>shop-02.jpg</b><span>Interior, racks and prints</span></div>
+<figcaption>Interior</figcaption></figure>
+<figure class="shot"><img src="assets/shop/shop-03.jpg" alt="The cart" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+<div class="miss" style="display:none"><b>shop-03.jpg</b><span>The cart in use</span></div>
+<figcaption>The cart</figcaption></figure>
+</div></div></section>
+
+<footer><div class="wrap"><p>Model built from NYC Open Data: building footprints with recorded roof
+heights, planimetric roadbed and sidewalk polygons, street centerline names, and the 2015 street
+tree census. The site lot was matched by BBL through the city geocoder. Photographs of the shop are
+not yet supplied. Sales figures are gross register data and the deal terms are draft. Not audited,
+not an offer.</p></div></footer>
+<script type="importmap">
+{"imports":{"three":"https://unpkg.com/three@0.161.0/build/three.module.js",
+"three/addons/":"https://unpkg.com/three@0.161.0/examples/jsm/"}}
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
+
+const MODEL='assets/model/nostrand_neighborhood.glb';
+const CONTEXT_COLOR=0x232323;
+const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const loadEl=document.getElementById('load'), fillEl=document.getElementById('fill');
+
+const WP=[
+ {p:[430,520,430],t:[0,10,0],s:250},
+ {p:[70,95,70],t:[0,5,0],s:42},
+ {p:[14,470,90],t:[0,0,0],s:165},
+ {p:[9,7,59],t:[0,4,0],s:26},
+ {p:[300,380,300],t:[0,8,0],s:135},
+ {p:[46,72,46],t:[0,5,0],s:27},
+ {p:[520,620,520],t:[0,0,0],s:300}];
+
+let renderer,scene,cam,ready=false;
+function fail(m){console.warn('3D unavailable:',m);document.body.classList.add('fallback');loadEl.classList.add('done');}
+try{renderer=new THREE.WebGLRenderer({antialias:true});}catch(e){fail(e);}
+
+if(renderer){
+ renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+ renderer.setSize(innerWidth,innerHeight);
+ renderer.shadowMap.enabled=true; renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+ document.getElementById('stage').appendChild(renderer.domElement);
+ scene=new THREE.Scene();
+ scene.background=new THREE.Color(0x0C0C0C);
+ scene.fog=new THREE.Fog(0x0C0C0C,700,1800);
+ cam=new THREE.OrthographicCamera(-1,1,1,-1,-3000,6000);
+ scene.add(new THREE.HemisphereLight(0xffffff,0x2a2a26,1.15));
+ const key=new THREE.DirectionalLight(0xffffff,2.1);
+ key.position.set(-260,420,200); key.castShadow=true; key.shadow.mapSize.set(2048,2048);
+ const c=key.shadow.camera; c.left=-450;c.right=450;c.top=450;c.bottom=-450;c.near=1;c.far=1400;
+ scene.add(key);
+ const fl=new THREE.DirectionalLight(0xffffff,0.55); fl.position.set(320,200,-280); scene.add(fl);
+
+ const draco=new DRACOLoader();
+ draco.setDecoderPath('https://unpkg.com/three@0.161.0/examples/jsm/libs/draco/gltf/');
+ const loader=new GLTFLoader(); loader.setDRACOLoader(draco);
+
+ loader.load(MODEL,(g)=>{
+  g.scene.traverse(o=>{
+   if(!o.isMesh)return;
+   const m=o.material;
+   if(m){m.roughness=1.0;m.metalness=0.0;m.flatShading=true;}
+   const n=o.name.toUpperCase();
+   if(n.startsWith('BROOKLYN_MASSING')){o.castShadow=true;o.receiveShadow=true;
+     if(CONTEXT_COLOR!==null&&m)m.color=new THREE.Color(CONTEXT_COLOR);}
+   else if(n.startsWith('SITE')){o.castShadow=true;
+     if(m){m.emissive=new THREE.Color(0xF6C500);m.emissiveIntensity=0.35;}}
+   else if(n.startsWith('TREES')){o.castShadow=true;}
+   else {o.receiveShadow=true;}
+  });
+  scene.add(g.scene); ready=true; loadEl.classList.add('done'); onScroll();
+ },(ev)=>{ if(ev.total) fillEl.style.width=(ev.loaded/ev.total*100).toFixed(0)+'%'; },
+   (err)=>fail(err));
+
+ const state={p:new THREE.Vector3(),t:new THREE.Vector3(),s:250};
+ const goal={p:new THREE.Vector3(),t:new THREE.Vector3(),s:250};
+ const secs=[...document.querySelectorAll('main section')];
+ const links=[...document.querySelectorAll('#rail a')];
+ const cap=document.getElementById('cap'), bar=document.getElementById('bar');
+ const scrim=document.getElementById('scrim');
+ let shown=-1;
+ const mult=()=>innerWidth<760?1.5:1;
+ const lerp=(a,b,t)=>a+(b-a)*t;
+ const smooth=t=>t*t*(3-2*t);
+
+ function onScroll(){
+  const max=document.documentElement.scrollHeight-innerHeight;
+  const t=max>0?Math.min(1,Math.max(0,scrollY/max)):0;
+  bar.style.width=(t*100).toFixed(2)+'%';
+  const seg=t*(WP.length-1);
+  const i=Math.min(WP.length-2,Math.floor(seg));
+  const f=smooth(seg-i), a=WP[i], b=WP[i+1];
+  goal.p.set(lerp(a.p[0],b.p[0],f),lerp(a.p[1],b.p[1],f),lerp(a.p[2],b.p[2],f));
+  goal.t.set(lerp(a.t[0],b.t[0],f),lerp(a.t[1],b.t[1],f),lerp(a.t[2],b.t[2],f));
+  goal.s=lerp(a.s,b.s,f)*mult();
+  if(reduced){state.p.copy(goal.p);state.t.copy(goal.t);state.s=goal.s;}
+  const mid=innerHeight*0.45; let n=0,bd=1e9;
+  secs.forEach((s,j)=>{const r=s.getBoundingClientRect();
+   const d=Math.abs(r.top+r.height/2-mid); if(d<bd){bd=d;n=j;}});
+  if(n!==shown){shown=n;
+   links.forEach((l,j)=>l.classList.toggle('on',j===n));
+   cap.textContent=secs[n].dataset.cap||'';
+   scrim.classList.toggle('flip',!!secs[n].querySelector('.wrap.right'));}
+ }
+
+ function frame(){
+  requestAnimationFrame(frame);
+  if(!ready)return;
+  if(!reduced){state.p.lerp(goal.p,0.07);state.t.lerp(goal.t,0.07);
+   state.s+=(goal.s-state.s)*0.07;}
+  const a=innerWidth/innerHeight;
+  cam.left=-state.s*a; cam.right=state.s*a; cam.top=state.s; cam.bottom=-state.s;
+  cam.position.copy(state.p); cam.up.set(0,1,0); cam.lookAt(state.t);
+  cam.updateProjectionMatrix();
+  renderer.render(scene,cam);
+ }
+
+ addEventListener('scroll',onScroll,{passive:true});
+ addEventListener('resize',()=>{renderer.setSize(innerWidth,innerHeight);onScroll();});
+ onScroll(); state.p.copy(goal.p); state.t.copy(goal.t); state.s=goal.s; frame();
+ setTimeout(()=>{if(!ready)fail('timeout');},20000);
+}
+</script></body></html>
