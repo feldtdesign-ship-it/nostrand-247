@@ -1,0 +1,426 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nostrand 247</title>
+<meta property="og:type" content="website">
+<meta property="og:title" content="247 Nostrand · The Corridor">
+<meta property="og:description" content="Foot traffic at Nostrand and Lafayette, Bed-Stuy, from public data. The B44 Select Bus, the G train, the cars, the weather, the sidewalk at the door.">
+<meta property="og:url" content="https://feldtdesign-ship-it.github.io/nostrand-247/traffic/">
+<meta property="og:image" content="https://feldtdesign-ship-it.github.io/nostrand-247/traffic/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="247 Nostrand · The Corridor">
+<meta name="twitter:description" content="Foot traffic at Nostrand and Lafayette, Bed-Stuy, from public data.">
+<meta name="twitter:image" content="https://feldtdesign-ship-it.github.io/nostrand-247/traffic/og.png">
+<meta name="theme-color" content="#0B120E">
+<meta name="description" content="Foot traffic at Nostrand and Lafayette, Bed-Stuy, from public data. The B44 Select Bus, the G train, the cars, the weather, the sidewalk at the door.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,50;1,9..144,300..700,50&family=Chivo+Mono:wght@300;400;500&display=swap">
+<style>
+:root{
+  --ground:#0B120E; --panel:#121B15; --panel-2:#18241C; --rule:#243128;
+  --ink:#EEF2E6; --ink-2:#AAB4A6; --muted:#6E7A70;
+  --g:#6CBE45; --g-ink:#07130A; --bus:#4C8DFF; --bus-dim:#2B5AA8; --amber:#E4B23B; --heat:#E0603A; --cold:#8FB3D6; --rain:#4C8DFF; --snow:#EEF2E6;
+  --disp:"Archivo","Helvetica Neue",Arial,sans-serif; --serif:"Fraunces",Georgia,"Times New Roman",serif; --mono:"Chivo Mono",ui-monospace,Menlo,monospace;
+}
+*{box-sizing:border-box}
+html{background:var(--ground)}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--serif);font-size:17px;line-height:1.5;-webkit-font-smoothing:antialiased;font-variation-settings:"SOFT" 50,"opsz" 14}
+main{max-width:1120px;margin:0 auto;padding:22px 24px 90px;display:flex;flex-direction:column;gap:72px}
+h1,h2{font-family:var(--disp);margin:0;line-height:.92;text-wrap:balance}
+h2{font-size:46px;font-weight:900;font-stretch:112%;letter-spacing:-.01em;text-transform:uppercase;margin-bottom:14px}
+h2 small{display:block;font-family:var(--mono);font-size:12px;letter-spacing:.14em;color:var(--muted);text-transform:uppercase;margin-bottom:10px;font-weight:400;font-stretch:100%}
+p{margin:0;max-width:64ch}
+p+p{margin-top:12px}
+b{font-weight:600;color:var(--ink)}
+a{color:var(--g)}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--g);outline-offset:3px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.mast{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--rule);padding-bottom:12px;font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);flex-wrap:wrap;gap:8px}
+.mast .clock{color:var(--g)}
+
+/* ---- hour scrubber, sticky ---- */
+.scrub{position:sticky;top:0;z-index:5;background:linear-gradient(var(--ground) 85%,transparent);padding:12px 0 18px;display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center}
+.scrub .lab{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.scrub .lab b{color:var(--g);font-weight:500;display:block;font-size:20px;letter-spacing:0;text-transform:none;font-family:var(--disp);font-weight:800}
+.scrub input[type=range]{width:100%;accent-color:var(--g);height:28px;cursor:ew-resize}
+.scrub button{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;background:transparent;color:var(--ink-2);border:1px solid var(--rule);padding:8px 12px;cursor:pointer;border-radius:2px;white-space:nowrap}
+.scrub button.on{background:var(--g);color:var(--g-ink);border-color:var(--g)}
+.scrub .days{display:flex;gap:4px}
+
+/* ---- hero ---- */
+.hero{display:grid;grid-template-columns:1fr;gap:10px}
+.hero .big{font-family:var(--disp);font-weight:900;font-size:clamp(110px,20vw,250px);line-height:.82;color:var(--g);font-variant-numeric:tabular-nums;letter-spacing:-.02em;font-stretch:100%;transition:font-stretch .6s cubic-bezier(.2,.8,.2,1)}
+.hero .unit{font-family:var(--disp);font-weight:800;font-stretch:112%;font-size:clamp(26px,3.6vw,42px);text-transform:uppercase;line-height:1;margin-top:6px}
+.hero .sub{color:var(--ink-2);max-width:60ch;margin-top:8px}
+.split{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2px;background:var(--rule);margin-top:16px}
+.split div{background:var(--panel);padding:14px 16px}
+.split .k{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.split .v{font-family:var(--disp);font-weight:900;font-stretch:112%;font-size:40px;line-height:1;margin-top:6px;font-variant-numeric:tabular-nums}
+.split .v.bus{color:var(--bus)} .split .v.g{color:var(--g)}
+.split .t{font-size:13px;color:var(--ink-2);margin-top:4px}
+
+/* ---- conveyor ---- */
+.conv{position:relative;background:var(--panel);border-top:2px solid var(--g);overflow:hidden}
+.conv canvas{display:block;width:100%;height:auto}
+.conv .keys{display:flex;gap:18px;flex-wrap:wrap;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);padding:10px 16px 14px}
+.conv .keys i{display:inline-block;width:10px;height:10px;border-radius:50%;vertical-align:middle;margin-right:6px;background:var(--ink)}
+.conv .keys i.bus{background:var(--bus);border-radius:2px;width:16px} .conv .keys i.g{background:var(--g)} .conv .keys i.car{background:var(--muted);border-radius:2px;width:12px;height:6px}
+
+/* ---- charts ---- */
+.panel{background:var(--panel);border-top:2px solid var(--g);padding:18px}
+svg{display:block;width:100%;height:auto}
+.ax{font-family:var(--mono);font-size:11px;fill:var(--muted)}
+.grid{stroke:var(--rule);stroke-width:1}
+.river .bus{fill:var(--bus);opacity:.85} .river .g{fill:var(--g);opacity:.9} .river .car{fill:var(--muted);opacity:.35}
+.river .cur{stroke:var(--ink);stroke-width:1.5;opacity:.7}
+.legend{display:flex;gap:18px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);margin-top:10px;flex-wrap:wrap}
+.legend i{display:inline-block;width:14px;height:10px;vertical-align:middle;margin-right:6px}
+.legend i.bus{background:var(--bus)} .legend i.g{background:var(--g)} .legend i.car{background:var(--muted);opacity:.5}
+.readout{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:10px}
+.readout div{border-top:1px solid var(--rule);padding-top:8px}
+.readout .k{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.readout .v{font-family:var(--disp);font-size:34px;font-weight:900;font-stretch:112%;line-height:1;margin-top:4px;font-variant-numeric:tabular-nums}
+
+/* heat */
+.heat{display:grid;grid-template-columns:44px 1fr;gap:6px 8px;align-items:center;margin-top:18px}
+.heat .row{display:grid;grid-template-columns:repeat(24,1fr);gap:2px}
+.heat .cell{aspect-ratio:1/1.15;background:var(--g);border-radius:1px;transition:transform .12s,outline .12s}
+.heat .cell.bus{background:var(--bus)}
+.heat .cell:hover{transform:scale(1.35);outline:1px solid var(--ink);z-index:2;position:relative}
+.heat .cell.now{outline:1px solid var(--ink)}
+.heat .d{font-family:var(--mono);font-size:11px;color:var(--ink-2);letter-spacing:.08em}
+.heat .hrs{grid-column:2;display:grid;grid-template-columns:repeat(24,1fr);font-family:var(--mono);font-size:10px;color:var(--muted)}
+.heat .hrs span:nth-child(3n+2),.heat .hrs span:nth-child(3n+3){visibility:hidden}
+.tip{position:fixed;pointer-events:none;background:var(--ink);color:var(--ground);font-family:var(--mono);font-size:12px;padding:6px 9px;border-radius:2px;z-index:9;white-space:nowrap;display:none}
+.heatwrap{display:grid;grid-template-columns:1fr;gap:26px}
+
+/* year */
+.yr .g{fill:var(--g)} .yr .bus{fill:var(--bus)} .yr .lbl{font-family:var(--disp);font-weight:800;font-size:18px;fill:var(--ink)}
+.multi .y{fill:none;stroke-width:2} .multi .y.g{stroke:var(--g)} .multi .y.bus{stroke:var(--bus)} .multi .y.b38{stroke:var(--amber)} .multi .y.local{stroke:var(--bus-dim)}
+.multi .ylab{font-family:var(--disp);font-weight:800;font-size:15px} .multi .ylab.g{fill:var(--g)} .multi .ylab.bus{fill:var(--bus)} .multi .ylab.b38{fill:var(--amber)} .multi .ylab.local{fill:var(--bus-dim)}
+
+/* weather */
+.wx .dot{fill:var(--ink-2);opacity:.55;transition:opacity .2s,fill .2s}
+.wx.mode-rain .dot.rain{fill:var(--rain);opacity:1} .wx.mode-snow .dot.snow{fill:var(--snow);opacity:1} .wx.mode-cold .dot.cold{fill:var(--cold);opacity:1} .wx.mode-hot .dot.hot{fill:var(--heat);opacity:1}
+.wx.mode-rain .dot:not(.rain),.wx.mode-snow .dot:not(.snow),.wx.mode-cold .dot:not(.cold),.wx.mode-hot .dot:not(.hot){opacity:.15}
+.modes{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.modes button{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;background:transparent;color:var(--ink-2);border:1px solid var(--rule);padding:7px 12px;cursor:pointer;border-radius:2px}
+.modes button.on{background:var(--ink);color:var(--ground);border-color:var(--ink)}
+.finding{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:baseline;margin-top:12px;border-top:1px solid var(--rule);padding-top:10px}
+.finding .v{font-family:var(--disp);font-size:56px;font-weight:900;font-stretch:112%;line-height:1;color:var(--g);font-variant-numeric:tabular-nums;min-width:120px}
+.finding .t{color:var(--ink-2)}
+
+/* cards */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:2px;background:var(--rule);margin-top:18px}
+.cards div{background:var(--panel);padding:18px}
+.cards .k{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.cards .v{font-family:var(--disp);font-size:46px;font-weight:900;font-stretch:112%;line-height:1;margin:8px 0 6px;font-variant-numeric:tabular-nums;color:var(--ink)}
+.cards .v em{font-style:normal;color:var(--g)} .cards .v em.b{color:var(--bus)}
+.cards .t{font-size:14.5px;color:var(--ink-2);line-height:1.45}
+.cards div.pick{border-top:3px solid var(--g)}
+
+/* cams */
+.cams{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:18px}
+.cams .c img{width:100%;aspect-ratio:352/240;object-fit:cover;display:block;border:1px solid var(--rule);background:#000}
+.cams .cap{font-family:var(--mono);font-size:12px;color:var(--ink-2);line-height:1.45;margin-top:8px}
+.cams .cap b{color:var(--ink);font-weight:500}
+.none{background:var(--panel);border-left:4px solid var(--amber);padding:16px 20px;margin-top:18px}
+.none b{color:var(--amber)}
+.caveat{border-left:3px solid var(--g);padding:4px 0 4px 16px;color:var(--ink-2);font-size:15.5px}
+.src{font-family:var(--mono);font-size:12px;color:var(--muted);line-height:1.8;border-top:1px solid var(--rule);padding-top:14px}
+.src a{color:var(--ink-2)}
+.est{margin-top:24px;display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:start;border-top:1px solid var(--rule);padding-top:18px}
+.est .v{font-family:var(--disp);font-size:72px;font-weight:900;font-stretch:112%;line-height:.9;color:var(--g);font-variant-numeric:tabular-nums;white-space:nowrap}
+.est .v small{display:block;font-size:18px;font-weight:800;color:var(--ink);margin-top:6px;letter-spacing:.02em}
+@media (max-width:720px){.scrub{grid-template-columns:1fr}.split{grid-template-columns:1fr}.est{grid-template-columns:1fr}h2{font-size:36px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<main>
+<div class="mast">
+  <span><a href="../" style="color:var(--ink-2);text-decoration:none">← Dossier</a> &nbsp;·&nbsp; 247 Nostrand Ave · Bed-Stuy · west side, between Lafayette Ave and Kosciuszko St</span>
+  <span class="clock" id="clock">--:-- NYC</span>
+</div>
+
+<div class="scrub">
+  <div class="lab">Hour <b id="hr-lab">5:00 pm</b></div>
+  <input type="range" id="hr" min="0" max="23.9" step="0.1" value="17" aria-label="Hour of day">
+  <div class="days"><button data-d="wk" class="on">Weekday</button><button data-d="sa">Sat</button><button data-d="su">Sun</button><button id="live">Live</button></div>
+</div>
+
+<section class="hero">
+  <div class="eyebrow" id="hero-eye">Typical weekday at this hour</div>
+  <div class="big" id="big">0</div>
+  <div class="unit">people an hour arriving at the corner by bus and train</div>
+  <p class="sub" id="sub">Loading.</p>
+  <div class="split">
+    <div><span class="k">Bus, five stops within 130 m</span><div class="v bus" id="s-bus">–</div><div class="t">Boardings plus alightings an hour. B44 Select Bus, B44 local, B38 and B93.</div></div>
+    <div><span class="k">G train, Bedford–Nostrand, 202 m</span><div class="v g" id="s-g">–</div><div class="t">Entries an hour, doubled to include exits.</div></div>
+    <div><span class="k">Cars past the door</span><div class="v" id="s-car">–</div><div class="t">Southbound on Nostrand, DOT recorder, December 2024.</div></div>
+  </div>
+</section>
+
+<section>
+  <h2><small>The corridor</small>Nostrand is a conveyor</h2>
+  <p>One-way southbound, three lanes, a bus lane, and the B44 Select Bus every few minutes. This strip runs at the hour on the scrubber. Buses arrive at the real rate, drop and pick up the real number of riders, and the G spills its crowd from the corner of Lafayette. Cars are the recorder's count. Drag the hour and watch the block fill.</p>
+  <div class="conv" style="margin-top:18px"><canvas id="conv" width="1400" height="360"></canvas>
+    <div class="keys"><span><i class="bus"></i>B44 SBS · B44 · B38/B93</span><span><i class="g"></i>G train riders</span><span><i></i>Walking past the door</span><span><i class="car"></i>Cars</span><span id="conv-note" style="margin-left:auto;color:var(--muted)"></span></div>
+  </div>
+</section>
+
+<section>
+  <h2><small>The day</small>Bus in the morning, train at night</h2>
+  <p>Stacked by the hour: bus riders at the five stops, G entries, and southbound cars, for a weekday, Saturday, or Sunday. The line follows the scrubber.</p>
+  <div class="panel" style="margin-top:18px"><svg id="river" viewBox="0 0 1040 320" class="river"></svg>
+    <div class="legend"><span><i class="bus"></i>Bus riders</span><span><i class="g"></i>G entries</span><span><i class="car"></i>Cars ÷ 4</span></div>
+    <div class="readout"><div><span class="k">Bus riders /hr</span><div class="v" id="r-bus" style="color:var(--bus)">–</div></div><div><span class="k">G entries /hr</span><div class="v" id="r-g" style="color:var(--g)">–</div></div><div><span class="k">Cars /hr</span><div class="v" id="r-car">–</div></div><div><span class="k">Hour</span><div class="v" id="r-hr" style="font-size:22px;color:var(--ink-2)">–</div></div></div>
+  </div>
+</section>
+
+<section class="heatwrap">
+  <div><h2><small>The week</small>168 hours, two systems</h2>
+  <p>Top: G entries. Bottom: bus riders at the five stops. Brighter is busier. The outlined cell is the scrubber's hour.</p></div>
+  <div class="heat" id="heat-g"></div>
+  <div class="heat" id="heat-b"></div>
+</section>
+
+<section>
+  <h2><small>The year</small>Ridership since the shutdown</h2>
+  <p>Monthly entries at Bedford–Nostrand, January 2020 to August 2026: the collapse, the long climb, and the seasonal wobble on top. The bus lines are whole-route fare taps. Stop-level data for the five stops begins in September 2024 and is the bar chart below. The 2021 city assessment says the B44 kept two thirds of its riders through 2020 while the G kept a third.</p>
+  <div class="panel multi" style="margin-top:18px"><svg id="multi" viewBox="0 0 1040 340"></svg>
+    <div class="legend" id="multi-legend"><span><i class="g"></i>G at Bedford–Nostrand, entries</span><span><i class="bus"></i>B44 SBS, whole route</span><span><i style="background:var(--bus-dim)"></i>B44 local</span><span><i style="background:var(--amber)"></i>B38</span></div>
+    <p class="eyebrow" style="margin-top:10px">Bus lines are fare taps on the whole route, and roughly half of Brooklyn bus riders do not tap, so they understate riders and run only to where the dataset ends.</p>
+  </div>
+  <div class="panel yr" style="margin-top:18px"><svg id="stops" viewBox="0 0 1040 260"></svg><p class="eyebrow" style="margin-top:10px">Monthly boardings plus alightings at the five stops within 130 m of the door, since the stop-level data begins.</p></div>
+</section>
+
+<section>
+  <h2><small>Weather</small>Does rain empty the block?</h2>
+  <p>One dot per day of G entries, January 2025 to August 2026. Pick a condition to light those days and see the gap.</p>
+  <div class="panel wx" id="wx" style="margin-top:18px">
+    <div class="modes"><button data-mode="rain">Rain, over 0.25 in</button><button data-mode="snow">Snow days</button><button data-mode="cold">High under 35 F</button><button data-mode="hot">High over 90 F</button><button data-mode="none">Clear</button></div>
+    <svg id="wxsvg" viewBox="0 0 1040 300"></svg>
+    <div class="finding"><div class="v" id="f-v">–</div><div class="t" id="f-t">Choose a condition.</div></div>
+  </div>
+</section>
+
+<section>
+  <h2><small>Measured</small>What the city has counted here</h2>
+  <p>No pedestrian counter exists on Nostrand. These are the numbers that do exist, from the Department of Small Business Services' 2021 district assessment, the DOT recorder, the crash database and the survey layers.</p>
+  <div class="cards">
+    <div><span class="k">B44 local + SBS, weekday riders, 2019</span><div class="v"><em class="b">31,375</em></div><div class="t">Whole route, Williamsburg to Sheepshead Bay. 20,445 in 2020. One of the three busiest buses in Brooklyn.</div></div>
+    <div><span class="k">G at Bedford–Nostrand, weekday, 2019</span><div class="v"><em>8,866</em></div><div class="t">3,289 in 2020. Today's summer average is on the scrubber.</div></div>
+    <div><span class="k">Cars on Nostrand, per day</span><div class="v" id="c-car">–</div><div class="t">DOT recorder, Clifton Pl to Greene Ave southbound, nine days in December 2024. The 2021 assessment put Lafayette to Atlantic at 12,297.</div></div>
+    <div><span class="k">Crashes within 150 m since 2023</span><div class="v">103</div><div class="t">60 people injured, 13 of them on foot, 9 on bikes. Nobody killed.</div></div>
+    <div><span class="k">Merchants naming low foot traffic a top problem</span><div class="v">36%</div><div class="t">Bed-Stuy storefront survey, 2020 to 2021, 879 storefronts. Commercial rent came first at 43%.</div></div>
+    <div><span class="k">Citi Bike dock at the corner</span><div class="v">37<span style="font-size:22px"> m</span></div><div class="t">Kosciuszko St and Nostrand Ave, 23 docks. Two more within 300 m.</div></div>
+  </div>
+</section>
+
+<section>
+  <h2><small>The sidewalk</small>14 ft, and a 20 ft storefront</h2>
+  <div class="cards">
+    <div><span class="k">Sidewalk, curb to building</span><div class="v"><em>14.4</em><span style="font-size:22px"> ft</span></div><div class="t">City curb line and the OpenStreetMap outline agree to the inch. Effective width about 11 ft after the CEQR buffers, before poles or the bus shelter.</div></div>
+    <div><span class="k">Roadbed</span><div class="v">40<span style="font-size:22px"> ft</span></div><div class="t">Curb to curb. Three southbound lanes including the bus lane. Right of way about 69 ft.</div></div>
+    <div><span class="k">The lot</span><div class="v">20 × 80</div><div class="t">Built 1899, two storeys, store below and one apartment above. 800 sq ft of retail. Zoned R6A.</div></div>
+    <div><span class="k">Level of Service</span><div class="v"><em>A</em> to B</div><div class="t">At any plausible volume for this block an 11 ft effective sidewalk has room. Crowding here is the bus shelter queue, not the flow.</div></div>
+  </div>
+  <div class="est">
+    <div class="v" id="est-v">–<small>passers a weekday, estimate</small></div>
+    <div><p class="t" style="color:var(--ink-2)">Nobody counts this sidewalk. The estimate adds what the transit data puts onto the block: bus riders at the five stops, G riders both ways, and a share of the neighbourhood walking to them, then halves it for the west side. It is an estimate assembled from measured pieces, not a measurement, and the share of G riders who walk this way is the soft part.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2><small>Cameras</small>None on this street</h2>
+  <div class="none"><b>No public camera sees Nostrand Avenue here.</b> The city's 973 traffic cameras thin out east of Flatbush. The nearest four are 1.3 to 2 km away and point at Atlantic Avenue and the expressway. They are on the live wall for completeness, and they are not evidence about this block.</div>
+  <div class="cams" id="cams"></div>
+  <p class="eyebrow" style="margin-top:12px">Live wall of the same four: <a href="live-wall.html">live-wall.html</a>. A camera on the storefront itself is the honest fix.</p>
+</section>
+
+<section>
+  <h2><small>Still to buy</small>The one number nobody has given us</h2>
+  <div class="cards">
+    <div class="pick"><span class="k">Recommended</span><div class="v" style="font-size:30px;margin-top:10px">Placer.ai, per-address pull</div><div class="v"><em>$99</em><span style="font-size:18px"> to $299 a month</span></div><div class="t">Monthly visits to 247 Nostrand back several years, dwell and origin. Built from phone location pings. Placer does not publish prices; these are third-party listings. One paid month is enough.</div></div>
+    <div><span class="k">Free, forward-looking</span><div class="v" style="font-size:30px;margin-top:10px">A camera on the storefront</div><div class="v">$0<span style="font-size:18px"> to $200</span></div><div class="t">With no DOT camera in reach, a small camera in the window counting the sidewalk is the only way to get a true door count. A season of it beats every proxy on this page.</div></div>
+  </div>
+  <p class="caveat" style="margin-top:22px">Assumed the west side of Nostrand between Lafayette and Kosciuszko, lot 3017840005. The 2025 Brooklyn bus redesign renamed and rerouted lines; the B93 now appears at the Lafayette stop where the B38 did. Route totals are for whole routes, not this stop.</p>
+</section>
+
+<p class="src">Sources · <a href="https://data.ny.gov/">MTA subway hourly ridership, complex 289, and bus stop-level ridership, data.ny.gov</a> · <a href="https://www.nyc.gov/assets/sbs/downloads/pdf/neighborhoods/avenyc-cdna-bedford-stuyvesant.pdf">SBS Bedford-Stuyvesant Commercial District Needs Assessment, 2021</a> · <a href="https://data.cityofnewyork.us/Transportation/Automated-Traffic-Volume-Counts/7ym2-wayt">NYC DOT Automated Traffic Volume Counts</a> · <a href="https://data.cityofnewyork.us/Public-Safety/Motor-Vehicle-Collisions-Crashes/h9gi-nx95">NYC Motor Vehicle Collisions</a> · <a href="https://data.cityofnewyork.us/City-Government/NYC-Planimetric-Database-Curbs/5xvt-8cbk">NYC Planimetric Database, Curbs</a> · <a href="https://www.openstreetmap.org/#map=19/40.69040/-73.95135">OpenStreetMap</a> · <a href="https://open-meteo.com/">Open-Meteo</a> · <a href="https://webcams.nyctmc.org/">NYC DOT cameras</a> · PLUTO lot 3017840005 · Citi Bike GBFS</p>
+</main>
+<div class="tip" id="tip"></div>
+
+<script>
+const D = __DATA__;
+const $ = id => document.getElementById(id);
+const fmt = n => Math.round(n).toLocaleString('en-US');
+const DOWN = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const hlab = t => { const h=Math.floor(t)%24, m=Math.round((t-Math.floor(t))*60); return `${((h+11)%12+1)}:${String(m).padStart(2,'0')} ${h<12?'am':'pm'}`; };
+const interp = (arr,t) => { const h=Math.floor(t)%24,h1=(h+1)%24,f=t-Math.floor(t); return arr[h]*(1-f)+arr[h1]*f; };
+const avg5 = obj => Array.from({length:24},(_,h)=>[1,2,3,4,5].reduce((s,d)=>s+(obj[d]?obj[d][h]:0),0)/5);
+/* series per day-type */
+const G = { wk: avg5(D.g_hourly), sa: D.g_hourly[6], su: D.g_hourly[0] };
+const BUS = { wk: avg5(D.bus_hourly), sa: D.bus_hourly[6]||Array(24).fill(0), su: D.bus_hourly[0]||Array(24).fill(0) };
+const CAR = D.car_hourly || Array(24).fill(0);
+const state = { t: 17, day: 'wk', live: false };
+
+/* ---------- hour scrubber ---------- */
+const listeners=[];
+function setHour(t, day){ state.t=t; if(day) state.day=day; $('hr').value=t; $('hr-lab').textContent=hlab(t); listeners.forEach(f=>f()); }
+$('hr').addEventListener('input',e=>{ state.live=false; $('live').classList.remove('on'); setHour(+e.target.value); });
+document.querySelectorAll('.days button[data-d]').forEach(b=>b.addEventListener('click',()=>{ document.querySelectorAll('.days button[data-d]').forEach(x=>x.classList.toggle('on',x===b)); state.live=false; $('live').classList.remove('on'); setHour(state.t,b.dataset.d); }));
+function nyNow(){ const p=new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',hour:'numeric',minute:'numeric',second:'numeric',weekday:'long',hour12:false}).formatToParts(new Date()); const g=k=>p.find(x=>x.type===k).value; return {h:+g('hour')%24,m:+g('minute'),s:+g('second'),wd:DOWN.indexOf(g('weekday'))}; }
+$('live').addEventListener('click',()=>{ state.live=!state.live; $('live').classList.toggle('on',state.live); if(state.live) goLive(); });
+function goLive(){ const n=nyNow(); const day=n.wd===0?'su':n.wd===6?'sa':'wk'; document.querySelectorAll('.days button[data-d]').forEach(x=>x.classList.toggle('on',x.dataset.d===day)); setHour(n.h+n.m/60, day); }
+setInterval(()=>{ const n=nyNow(); $('clock').textContent=`${DOWN[n.wd].slice(0,3)} ${hlab(n.h+n.m/60)}:${String(n.s).padStart(2,'0')} NYC`.replace(/:(\d\d) (am|pm):(\d\d)/,':$1:$3 $2'); if(state.live) goLive(); },1000);
+
+/* ---------- hero ---------- */
+let shown=0;
+function hero(){
+  const bus=interp(BUS[state.day],state.t), g=interp(G[state.day],state.t)*2, car=interp(CAR,state.t);
+  const total=bus+g;
+  const mx=Math.max(...BUS.wk.map((v,h)=>v+G.wk[h]*2));
+  const stretch=62+63*Math.min(1,total/mx);
+  $('big').style.fontStretch=stretch.toFixed(0)+'%';
+  const step=()=>{ shown+= (total-shown)*(reduce?1:.2); $('big').textContent=fmt(shown); if(Math.abs(total-shown)>1&&!reduce) requestAnimationFrame(step); else $('big').textContent=fmt(total); };
+  step();
+  $('s-bus').textContent=fmt(bus); $('s-g').textContent=fmt(g); $('s-car').textContent=fmt(car);
+  const dayName={wk:'weekday',sa:'Saturday',su:'Sunday'}[state.day];
+  $('hero-eye').textContent=(state.live?'Live · ':'')+`Typical ${dayName} at ${hlab(state.t)}`;
+  $('sub').innerHTML=`Summer 2026 averages. The number widens with the flow: the type is set on a width axis that runs from 62 to 125 percent, and this hour sits at <b>${stretch.toFixed(0)}%</b>. Peak for a ${dayName} is <b>${fmt(Math.max(...BUS[state.day].map((v,h)=>v+G[state.day][h]*2)))}</b> an hour.`;
+}
+listeners.push(hero);
+
+/* ---------- conveyor ---------- */
+(function(){
+  const cv=$('conv'), ctx=cv.getContext('2d'); const W=cv.width,H=cv.height;
+  const buses=[], peds=[], cars=[]; let last=performance.now(), accB=0, accC=0, accP=0, accG=0;
+  const roadY=[150,200,250]; const walkY=[95,118]; const doorX=W*0.42, stopX=W*0.62, gX=W*0.18;
+  function rates(){ const b=interp(BUS[state.day],state.t), g=interp(G[state.day],state.t)*2, c=interp(CAR,state.t); return {b,g,c}; }
+  function spawnBus(){ buses.push({x:W+60,y:roadY[0],v:2.2+Math.random()*.6,drop:false,riders:0}); }
+  function frame(now){
+    const dt=Math.min(50,now-last)/1000; last=now; const r=rates();
+    // buses: one bus per ~ (riders per bus). Assume 25 riders on/off per SBS stop event during peaks, min 1 bus per 12 min.
+    const busPerHr=Math.max(5, r.b/28); accB+=busPerHr/3600*dt*60; // 60x speed: 1 s = 1 min
+    while(accB>=1){ accB-=1; spawnBus(); }
+    const carPerHr=r.c; accC+=carPerHr/3600*dt*60; while(accC>=1){ accC-=1; cars.push({x:W+20,y:roadY[1+Math.floor(Math.random()*2)],v:4+Math.random()*2}); }
+    // pedestrians from the G (west/left) walking east past door, and general walkers
+    accG+=r.g/3600*dt*60*0.35; while(accG>=1){ accG-=1; peds.push({x:gX,y:walkY[0]+Math.random()*(walkY[1]-walkY[0]),v:(0.5+Math.random()*.3)*(Math.random()<.7?1:-1),c:'g'}); }
+    accP+=(r.b+r.g)/3600*dt*60*0.25; while(accP>=1){ accP-=1; const dir=Math.random()<.5?1:-1; peds.push({x:dir>0?-10:W+10,y:walkY[0]+Math.random()*(walkY[1]-walkY[0]),v:(0.5+Math.random()*.3)*dir,c:'w'}); }
+    // draw
+    ctx.clearRect(0,0,W,H);
+    ctx.fillStyle='#18241C'; ctx.fillRect(0,70,W,60); // sidewalk
+    ctx.fillStyle='#0E1611'; ctx.fillRect(0,130,W,150); // road
+    ctx.strokeStyle='#243128'; ctx.setLineDash([18,14]); ctx.lineWidth=2; [175,225].forEach(y=>{ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}); ctx.setLineDash([]);
+    ctx.fillStyle='rgba(76,141,255,.10)'; ctx.fillRect(0,132,W,44); // bus lane
+    // door
+    ctx.fillStyle='#6CBE45'; ctx.fillRect(doorX-14,40,28,30); ctx.fillStyle='#EEF2E6'; ctx.font='600 13px "Chivo Mono", monospace'; ctx.textAlign='center'; ctx.fillText('247',doorX,30);
+    ctx.fillStyle='#4C8DFF'; ctx.fillRect(stopX-3,84,6,14); ctx.fillStyle='#AAB4A6'; ctx.font='11px "Chivo Mono", monospace'; ctx.fillText('B44 SBS STOP · 53 m',stopX,62);
+    ctx.fillStyle='#6CBE45'; ctx.fillRect(gX-8,84,16,14); ctx.fillStyle='#AAB4A6'; ctx.fillText('G · LAFAYETTE AVE · 202 m',gX,62);
+    ctx.fillStyle='#6E7A70'; ctx.textAlign='left'; ctx.fillText('SOUTHBOUND →',16,300); ctx.textAlign='right'; ctx.fillText('KOSCIUSZKO ST',W-16,300); ctx.textAlign='left'; ctx.fillText('LAFAYETTE AVE',16,320);
+    // cars
+    for(const c of cars){ c.x-=c.v*60*dt; ctx.fillStyle='#6E7A70'; ctx.fillRect(c.x,c.y-4,14,8); }
+    for(let i=cars.length-1;i>=0;i--) if(cars[i].x<-30) cars.splice(i,1);
+    // buses (right to left = southbound)
+    for(const b of buses){
+      if(!b.drop && Math.abs(b.x-stopX)<3){ b.drop=true; b.wait=1.2; const n=Math.max(2,Math.round(r.b/busPerHr)); for(let k=0;k<Math.min(n,40);k++) peds.push({x:stopX+(Math.random()*20-10),y:walkY[0]+Math.random()*(walkY[1]-walkY[0]),v:(0.45+Math.random()*.4)*(Math.random()<.55?-1:1),c:'b',t:k*0.08}); }
+      if(b.wait>0){ b.wait-=dt; } else { b.x-=b.v*60*dt; }
+      ctx.fillStyle='#4C8DFF'; ctx.fillRect(b.x-30,b.y-9,60,18); ctx.fillStyle='#0B120E'; ctx.font='700 10px "Chivo Mono", monospace'; ctx.textAlign='center'; ctx.fillText('B44+',b.x,b.y+4);
+    }
+    for(let i=buses.length-1;i>=0;i--) if(buses[i].x<-80) buses.splice(i,1);
+    // peds
+    for(const p of peds){ if(p.t>0){p.t-=dt;continue;} p.x+=p.v*60*dt; ctx.fillStyle=p.c==='b'?'#4C8DFF':p.c==='g'?'#6CBE45':'#EEF2E6'; ctx.beginPath(); ctx.arc(p.x,p.y,2.4,0,6.28); ctx.fill(); }
+    for(let i=peds.length-1;i>=0;i--) if(peds[i].x<-20||peds[i].x>W+20) peds.splice(i,1);
+    if(peds.length>900) peds.splice(0,peds.length-900);
+    $('conv-note').textContent=`${hlab(state.t)} · ${fmt(r.b)} bus riders/hr · ${fmt(r.g)} G riders/hr · ${fmt(r.c)} cars/hr · 1 s = 1 min`;
+    if(!reduce) requestAnimationFrame(frame);
+  }
+  if(reduce){ // one static frame with a few sprites
+    for(let i=0;i<3;i++) spawnBus(); buses.forEach((b,i)=>b.x=W*0.2+i*W*0.3); for(let i=0;i<40;i++) peds.push({x:Math.random()*W,y:walkY[0]+Math.random()*23,v:0,c:'w'}); frame(performance.now());
+    listeners.push(()=>frame(performance.now()));
+  } else requestAnimationFrame(frame);
+})();
+
+/* ---------- river (stacked day) ---------- */
+(function(){
+  const W=1040,H=320,pl=54,pr=16,pt=14,pb=30; const svg=$('river');
+  function draw(){
+    const b=BUS[state.day], g=G[state.day], c=CAR.map(v=>v/4);
+    const top=Math.ceil(Math.max(...b.map((v,h)=>v+g[h]+c[h]))/500)*500||500;
+    const x=h=>pl+(W-pl-pr)*h/23, y=v=>H-pb-(H-pt-pb)*v/top;
+    const area=(lo,hi,cls)=>{ let d=''; for(let h=0;h<24;h++) d+=(h?'L':'M')+x(h).toFixed(1)+','+y(hi[h]).toFixed(1)+' '; for(let h=23;h>=0;h--) d+='L'+x(h).toFixed(1)+','+y(lo[h]).toFixed(1)+' '; return `<path class="${cls}" d="${d}Z"/>`; };
+    const zero=Array(24).fill(0), l1=b.slice(), l2=b.map((v,h)=>v+g[h]), l3=l2.map((v,h)=>v+c[h]);
+    let s=''; for(let v=0;v<=top;v+=top/5){ s+=`<line class="grid" x1="${pl}" x2="${W-pr}" y1="${y(v)}" y2="${y(v)}"/><text class="ax" x="${pl-8}" y="${y(v)+4}" text-anchor="end">${v?fmt(v):'0'}</text>`; }
+    for(let h=0;h<24;h+=3){ s+=`<text class="ax" x="${x(h)}" y="${H-10}" text-anchor="middle">${h===0?'12am':h<12?h+'am':h===12?'noon':(h-12)+'pm'}</text>`; }
+    s+=area(zero,l1,'bus')+area(l1,l2,'g')+area(l2,l3,'car');
+    s+=`<line class="cur" x1="${x(state.t)}" x2="${x(state.t)}" y1="${pt}" y2="${H-pb}"/>`;
+    svg.innerHTML=s;
+    $('r-bus').textContent=fmt(interp(b,state.t)); $('r-g').textContent=fmt(interp(g,state.t)); $('r-car').textContent=fmt(interp(CAR,state.t)); $('r-hr').textContent=hlab(state.t);
+  }
+  const move=e=>{ const r=svg.getBoundingClientRect(); const px=(e.touches?e.touches[0].clientX:e.clientX)-r.left; const t=Math.max(0,Math.min(23.9,((px/r.width)*W-pl)/(W-pl-pr)*23)); state.live=false; $('live').classList.remove('on'); setHour(t); };
+  svg.addEventListener('mousemove',move); svg.addEventListener('touchmove',e=>{move(e);e.preventDefault();},{passive:false});
+  listeners.push(draw);
+})();
+
+/* ---------- heatmaps ---------- */
+function heat(id, data, cls){
+  const el=$(id), tip=$('tip'); const order=[1,2,3,4,5,6,0]; const mx=Math.max(...order.flatMap(d=>data[d]||[0]));
+  let html='';
+  order.forEach(d=>{ html+=`<span class="d">${DOWN[d].slice(0,3)}</span><div class="row">`; (data[d]||Array(24).fill(0)).forEach((v,h)=>{ const a=Math.max(.04,Math.pow(v/mx,.8)); html+=`<div class="cell ${cls}" data-d="${d}" data-h="${h}" style="opacity:${a.toFixed(3)}" data-t="${DOWN[d]} ${hlab(h)} · ${fmt(v)}/hr"></div>`; }); html+='</div>'; });
+  html+='<span></span><div class="hrs">'+Array.from({length:24},(_,h)=>`<span>${h===0?'12a':h<12?h+'a':h===12?'12p':(h-12)+'p'}</span>`).join('')+'</div>';
+  el.innerHTML=html;
+  el.addEventListener('mousemove',e=>{ const c=e.target.closest('.cell'); if(!c){tip.style.display='none';return;} tip.style.display='block'; tip.textContent=c.dataset.t; tip.style.left=(e.clientX+14)+'px'; tip.style.top=(e.clientY-30)+'px'; });
+  el.addEventListener('mouseleave',()=>tip.style.display='none');
+  el.addEventListener('click',e=>{ const c=e.target.closest('.cell'); if(!c) return; const d=+c.dataset.d; const day=d===0?'su':d===6?'sa':'wk'; document.querySelectorAll('.days button[data-d]').forEach(x=>x.classList.toggle('on',x.dataset.d===day)); state.live=false; setHour(+c.dataset.h,day); });
+  listeners.push(()=>{ const h=Math.floor(state.t); const ds=state.day==='su'?[0]:state.day==='sa'?[6]:[1,2,3,4,5]; el.querySelectorAll('.cell').forEach(c=>c.classList.toggle('now',ds.includes(+c.dataset.d)&&+c.dataset.h===h)); });
+}
+heat('heat-g', D.g_hourly, 'g'); heat('heat-b', D.bus_hourly, 'bus');
+
+/* ---------- multi-year lines ---------- */
+(function(){
+  const series=[['bus',D.bus_months['B44+']||[]],['local',D.bus_months['B44']||[]],['b38',D.bus_months['B38']||[]],['g',D.g_months||[]]].filter(s=>s[1].length);
+  if(!series.length) return;
+  const W=1040,H=340,pl=60,pr=90,pt=14,pb=30; const months=[...new Set(series.flatMap(s=>s[1].map(p=>p[0])))].sort(); const n=months.length;
+  const top=Math.ceil(Math.max(...series.flatMap(s=>s[1].map(p=>p[1])))/250000)*250000;
+  const x=i=>pl+(W-pl-pr)*i/(n-1), y=v=>H-pb-(H-pt-pb)*v/top;
+  let s=''; for(let v=0;v<=top;v+=250000){ s+=`<line class="grid" x1="${pl}" x2="${W-pr}" y1="${y(v)}" y2="${y(v)}"/><text class="ax" x="${pl-8}" y="${y(v)+4}" text-anchor="end">${v?(v/1e6).toFixed(2)+'M':'0'}</text>`; }
+  months.forEach((m,i)=>{ if(m.endsWith('-01')) s+=`<text class="ax" x="${x(i)}" y="${H-10}" text-anchor="middle">${m.slice(0,4)}</text>`; });
+  series.forEach(([cls,pts])=>{ const d=pts.map((p,i)=>(i?'L':'M')+x(months.indexOf(p[0])).toFixed(1)+','+y(p[1]).toFixed(1)).join(' '); s+=`<path class="y ${cls}" d="${d}"><title>${cls}</title></path>`; const last=pts[pts.length-1]; s+=`<text class="ylab ${cls}" x="${x(months.indexOf(last[0]))+8}" y="${y(last[1])+5}">${{bus:'B44 SBS',local:'B44',b38:'B38',g:'G'}[cls]}</text>`; });
+  $('multi').innerHTML=s;
+})();
+
+/* ---------- stop-level monthly bars ---------- */
+(function(){
+  const pts=D.stop_months||[]; if(!pts.length){ $('stops').parentElement.style.display='none'; return; }
+  const W=1040,H=260,pl=60,pr=16,pt=30,pb=44,n=pts.length; const top=Math.ceil(Math.max(...pts.map(p=>p[1]))/10000)*10000;
+  const bw=(W-pl-pr)/n, y=v=>H-pb-(H-pt-pb)*v/top; let s='';
+  for(let v=0;v<=top;v+=top/4){ s+=`<line class="grid" x1="${pl}" x2="${W-pr}" y1="${y(v)}" y2="${y(v)}"/><text class="ax" x="${pl-8}" y="${y(v)+4}" text-anchor="end">${v?(v/1000)+'k':'0'}</text>`; }
+  const hi=pts.reduce((a,b)=>b[1]>a[1]?b:a);
+  pts.forEach((p,i)=>{ const x=pl+i*bw, m=+p[0].slice(5); s+=`<rect class="bus" x="${(x+3).toFixed(1)}" y="${y(p[1]).toFixed(1)}" width="${(bw-6).toFixed(1)}" height="${(H-pb-y(p[1])).toFixed(1)}"><title>${p[0]} · ${fmt(p[1])}</title></rect><text class="ax" x="${x+bw/2}" y="${H-pb+16}" text-anchor="middle">${'JFMAMJJASOND'[m-1]}</text>`; if(m===1||i===0) s+=`<text class="ax" x="${x+3}" y="${H-pb+32}">${p[0].slice(0,4)}</text>`; if(p===hi) s+=`<text class="lbl" x="${x+bw/2}" y="${y(p[1])-8}" text-anchor="middle">${fmt(p[1])}</text>`; });
+  $('stops').innerHTML=s;
+})();
+
+/* ---------- weather ---------- */
+(function(){
+  const rows=D.daily||[]; if(!rows.length){ $('wx').style.display='none'; return; }
+  const W=1040,H=300,pl=54,pr=16,pt=14,pb=30,n=rows.length; const top=Math.ceil(Math.max(...rows.map(r=>r[1]))/2000)*2000;
+  const x=i=>pl+(W-pl-pr)*i/(n-1), y=v=>H-pb-(H-pt-pb)*v/top; let s='';
+  for(let g=0;g<=top;g+=top/4){ s+=`<line class="grid" x1="${pl}" x2="${W-pr}" y1="${y(g)}" y2="${y(g)}"/><text class="ax" x="${pl-8}" y="${y(g)+4}" text-anchor="end">${g?fmt(g):'0'}</text>`; }
+  rows.forEach((r,i)=>{ if(r[0].slice(8)==='01'){ const m=+r[0].slice(5,7); s+=`<text class="ax" x="${x(i)}" y="${H-10}" text-anchor="middle">${'JFMAMJJASOND'[m-1]}${m===1?' '+r[0].slice(0,4):''}</text>`; } });
+  const cls=r=>[(r[3]>0.25?'rain':''),(r[4]>0?'snow':''),(r[2]<35?'cold':''),(r[2]>90?'hot':'')].filter(Boolean).join(' ');
+  rows.forEach((r,i)=>{ s+=`<circle class="dot ${cls(r)}" cx="${x(i).toFixed(1)}" cy="${y(r[1]).toFixed(1)}" r="2.6"><title>${r[0]} · ${fmt(r[1])} G entries · high ${Math.round(r[2])} F · ${r[3].toFixed(2)} in</title></circle>`; });
+  $('wxsvg').innerHTML=s;
+  const wx=$('wx'), names={rain:'rain days (over a quarter inch)',snow:'snow days',cold:'days with a high under 35 F',hot:'days with a high over 90 F'}; const avg=a=>a.reduce((s,r)=>s+r[1],0)/a.length;
+  function setMode(m){ wx.className='panel wx'+(m&&m!=='none'?' mode-'+m:''); document.querySelectorAll('.modes button').forEach(b=>b.classList.toggle('on',b.dataset.mode===m)); if(!m||m==='none'){ $('f-v').textContent='–'; $('f-t').textContent='Choose a condition.'; return; } const inn=rows.filter(r=>cls(r).split(' ').includes(m)), out=rows.filter(r=>!cls(r).split(' ').includes(m)); if(!inn.length){ $('f-v').textContent='0'; $('f-t').textContent='No such days.'; return; } const d=(avg(inn)/avg(out)-1)*100; $('f-v').textContent=(d>0?'+':'')+d.toFixed(0)+'%'; $('f-t').innerHTML=`<b>${inn.length}</b> ${names[m]}, averaging <b>${fmt(avg(inn))}</b> G entries against <b>${fmt(avg(out))}</b> on the other ${out.length} days.`; }
+  document.querySelectorAll('.modes button').forEach(b=>b.addEventListener('click',()=>setMode(b.dataset.mode))); setMode('rain');
+})();
+
+/* ---------- cams + cards ---------- */
+(function(){ $('cams').innerHTML=(D.cams||[]).map(c=>`<div class="c"><img src="${c.src}" alt="DOT camera ${c.name}"><div class="cap"><b>${c.name}</b> · ${(c.dist/1000).toFixed(1)} km<br>${c.t}</div></div>`).join(''); })();
+(function(){ if(D.car_day) $('c-car').textContent=fmt(D.car_day); const sum=a=>a.reduce((s,v)=>s+v,0); const busDay=sum(BUS.wk), gDay=sum(G.wk)*2; const est=Math.round((busDay+gDay*0.6+ (busDay+gDay)*0.5)/2/100)*100; $('est-v').innerHTML=fmt(est)+' <small>passers a weekday, estimate</small>'; })();
+
+/* ---------- go ---------- */
+setHour(17,'wk');
+</script>

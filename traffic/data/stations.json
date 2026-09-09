@@ -1,0 +1,3 @@
+[{"station_id":"290","complex_id":"290","stop_name":"Classon Av","daytime_routes":"G","gtfs_latitude":"40.688873","gtfs_longitude":"-73.96007"}
+,{"station_id":"289","complex_id":"289","stop_name":"Bedford-Nostrand Avs","daytime_routes":"G","gtfs_latitude":"40.689627","gtfs_longitude":"-73.953522"}
+,{"station_id":"288","complex_id":"288","stop_name":"Myrtle-Willoughby Avs","daytime_routes":"G","gtfs_latitude":"40.694568","gtfs_longitude":"-73.949046"}]

@@ -1,0 +1,30 @@
+[
+ {
+  "i": 0,
+  "name": "Atlantic Ave @ Bedford Ave",
+  "dist": 1304,
+  "id": "2fe54994-17f6-499d-a3ab-8c6dc9dbda9e",
+  "file": "ring/c0.jpg"
+ },
+ {
+  "i": 1,
+  "name": "Flushing Ave @ Williamsburg St W",
+  "dist": 1294,
+  "id": "2e0d5197-6073-411f-9d1a-326b30841679",
+  "file": "ring/c1.jpg"
+ },
+ {
+  "i": 2,
+  "name": "Bushwick Ave @ DeKalb Ave",
+  "dist": 2008,
+  "id": "068461e2-c62f-4ce4-adac-5f9efe92af1d",
+  "file": "ring/c2.jpg"
+ },
+ {
+  "i": 3,
+  "name": "Atlantic Ave @ Vanderbilt Ave",
+  "dist": 1688,
+  "id": "b5d8fe4f-1cf5-4cd8-8211-8353e68da1cb",
+  "file": "ring/c3.jpg"
+ }
+]

@@ -1,0 +1,22 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>247 Nostrand · nearest live cameras</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta property="og:title" content="247 Nostrand · Live Camera Wall"><meta property="og:description" content="The four nearest NYC DOT cameras to Nostrand and Lafayette. None of them see the street."><meta property="og:image" content="https://feldtdesign-ship-it.github.io/nostrand-247/traffic/og.png"><meta name="twitter:card" content="summary_large_image">
+<style>
+body{margin:0;background:#0B120E;color:#EEF2E6;font-family:"Chivo Mono",ui-monospace,Menlo,monospace;font-size:12px}
+header{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid #243128;letter-spacing:.1em;text-transform:uppercase}
+header b{color:#6CBE45;font-weight:500}
+.warn{padding:12px 16px;color:#E4B23B;border-bottom:1px solid #243128}
+main{display:grid;grid-template-columns:repeat(auto-fill,minmax(352px,1fr));gap:10px;padding:10px}
+figure{margin:0;background:#121B15;border:1px solid #243128} img{width:100%;aspect-ratio:352/240;object-fit:cover;display:block;background:#000}
+figcaption{padding:8px 10px;color:#AAB4A6} figcaption b{color:#EEF2E6;font-weight:500} a{color:#6CBE45}
+button{font:inherit;background:transparent;color:#AAB4A6;border:1px solid #243128;padding:5px 10px;cursor:pointer;letter-spacing:.08em;text-transform:uppercase}
+</style></head><body>
+<header><span>247 Nostrand · nearest live DOT cameras</span><span><b id="t">–</b> &nbsp; <button id="p">Pause</button></span></header>
+<div class="warn">No public camera sees Nostrand Avenue here. These four are 1.3 to 2 km away and point at Atlantic Avenue, Flushing Avenue and the BQE.</div>
+<main><figure data-id="2fe54994-17f6-499d-a3ab-8c6dc9dbda9e"><img alt="Atlantic Ave @ Bedford Ave"><figcaption><b>Atlantic Ave @ Bedford Ave</b> · 1.3 km from 247 Nostrand · <a href="https://webcams.nyctmc.org/" target="_blank" rel="noopener">DOT</a></figcaption></figure><figure data-id="2e0d5197-6073-411f-9d1a-326b30841679"><img alt="Flushing Ave @ Williamsburg St W"><figcaption><b>Flushing Ave @ Williamsburg St W</b> · 1.3 km from 247 Nostrand · <a href="https://webcams.nyctmc.org/" target="_blank" rel="noopener">DOT</a></figcaption></figure><figure data-id="068461e2-c62f-4ce4-adac-5f9efe92af1d"><img alt="Bushwick Ave @ DeKalb Ave"><figcaption><b>Bushwick Ave @ DeKalb Ave</b> · 2.0 km from 247 Nostrand · <a href="https://webcams.nyctmc.org/" target="_blank" rel="noopener">DOT</a></figcaption></figure><figure data-id="b5d8fe4f-1cf5-4cd8-8211-8353e68da1cb"><img alt="Atlantic Ave @ Vanderbilt Ave"><figcaption><b>Atlantic Ave @ Vanderbilt Ave</b> · 1.7 km from 247 Nostrand · <a href="https://webcams.nyctmc.org/" target="_blank" rel="noopener">DOT</a></figcaption></figure></main>
+<script>
+const figs=[...document.querySelectorAll('figure')]; let on=true;
+function refresh(){ const ts=Date.now(); figs.forEach(f=>{ f.querySelector('img').src='https://webcams.nyctmc.org/api/cameras/'+f.dataset.id+'/image?t='+ts; }); document.getElementById('t').textContent='refreshed '+new Date().toLocaleTimeString('en-US',{timeZone:'America/New_York'})+' NYC'; }
+refresh(); setInterval(()=>{ if(on) refresh(); }, 20000);
+document.getElementById('p').onclick=e=>{ on=!on; e.target.textContent=on?'Pause':'Resume'; };
+</script></body></html>

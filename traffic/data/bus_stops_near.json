@@ -1,0 +1,113 @@
+[
+ {
+  "dist": 53,
+  "stop_id": "308706",
+  "name": "NOSTRAND AV/KOSKIUSKO ST",
+  "lat": 40.69078,
+  "lon": -73.951715,
+  "routes": [
+   "B44+"
+  ]
+ },
+ {
+  "dist": 68,
+  "stop_id": "303027",
+  "name": "LAFAYETTE AV/NOSTRAND AV",
+  "lat": 40.689857,
+  "lon": -73.950967,
+  "routes": [
+   "B38"
+  ]
+ },
+ {
+  "dist": 96,
+  "stop_id": "303447",
+  "name": "NOSTRAND AV/LAFAYETTE AV",
+  "lat": 40.689536,
+  "lon": -73.951479,
+  "routes": [
+   "B44"
+  ]
+ },
+ {
+  "dist": 124,
+  "stop_id": "303446",
+  "name": "NOSTRAND AV/DEKALB AV",
+  "lat": 40.69145,
+  "lon": -73.951842,
+  "routes": [
+   "B44"
+  ]
+ },
+ {
+  "dist": 127,
+  "stop_id": "303088",
+  "name": "DE KALB AV/NOSTRAND AV",
+  "lat": 40.691337,
+  "lon": -73.952196,
+  "routes": [
+   "B38"
+  ]
+ },
+ {
+  "dist": 254,
+  "stop_id": "303087",
+  "name": "DE KALB AV/MARCY AV",
+  "lat": 40.691717,
+  "lon": -73.948892,
+  "routes": [
+   "B38"
+  ]
+ },
+ {
+  "dist": 260,
+  "stop_id": "303448",
+  "name": "NOSTRAND AV/GREENE AV",
+  "lat": 40.688059,
+  "lon": -73.951192,
+  "routes": [
+   "B44"
+  ]
+ },
+ {
+  "dist": 301,
+  "stop_id": "303026",
+  "name": "LAFAYETTE AV/BEDFORD AV",
+  "lat": 40.689433,
+  "lon": -73.954685,
+  "routes": [
+   "B38"
+  ]
+ },
+ {
+  "dist": 302,
+  "stop_id": "303028",
+  "name": "LAFAYETTE AV/MARCY AV",
+  "lat": 40.690231,
+  "lon": -73.947776,
+  "routes": [
+   "B38"
+  ]
+ },
+ {
+  "dist": 327,
+  "stop_id": "303445",
+  "name": "NOSTRAND AV/WILLOUGHBY AV",
+  "lat": 40.693268,
+  "lon": -73.952203,
+  "routes": [
+   "B44"
+  ]
+ },
+ {
+  "dist": 329,
+  "stop_id": "303417",
+  "name": "BEDFORD AV/LAFAYETTE AV",
+  "lat": 40.689351,
+  "lon": -73.955002,
+  "routes": [
+   "B44",
+   "B44+"
+  ]
+ }
+]
